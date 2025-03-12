@@ -1,3 +1,6 @@
+import java.util.Arrays;
+import java.util.Map;
+
 /**
  * 给你一个整数数组 nums ，找到其中最长严格递增子序列的长度。
  * <p>
@@ -52,30 +55,33 @@ public class Code300_LengthOfLIS {
     }
 
     /**
-     * 改成动态规划
+     * 迭代解法
+     * 思路：
+     * 遍历o-j位置的数组 如果当前i是大于之前的某一个数的话那么当前i的就是dp[j] = dp[i]+1
      *
      * @param nums
      * @return
      */
-//    public int lengthOfLIS2(int[] nums) {
-//        int min = Integer.MAX_VALUE;
-//        int max = Integer.MIN_VALUE;
-//        for (int i = 0; i < nums.length; i++) {
-//            min = Math.min(min, nums[i]);
-//            max = Math.max(max, nums[i]);
-//        }
-//        int[][] dp = new int[nums.length + 1][max - min + 1];
-//        for (int index = nums.length - 1; index >= 0; index--) {
-//            for (int pre = max; pre >= min; pre--) {
-//                int p1 = dp[index + 1][pre - min];
-//                int p2 = 0;
-//                if (nums[index] > pre) {
-//                    p2 = dp[index + 1][nums[index] - min] + 1;
-//                }
-//                dp[index][pre - min] = Math.max(p1, p2);
-//            }
-//        }
-//        return dp[0][min];
-//    }
+    public int lengthOfLIS2(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+        if (nums.length == 1) {
+            return 1;
+        }
+        int ans = 0;
+        int[] dp = new int[nums.length];
+        Arrays.fill(dp, 1);
+        for (int i = 1; i < nums.length; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[i] > nums[j]) {
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                    ans = Math.max(ans, dp[i]);
+                }
+            }
+        }
+        return ans;
+    }
+
 
 }
