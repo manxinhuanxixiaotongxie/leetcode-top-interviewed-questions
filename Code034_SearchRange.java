@@ -42,6 +42,7 @@ public class Code034_SearchRange {
         int R = nums.length - 1;
         // 找到res[0]的答案
         while (L <= R) {
+            // int mid = L + (R-L)/2;
             int mid = (R + L) >> 1;
             if (nums[mid] == target) {
                 res[0] = mid;
