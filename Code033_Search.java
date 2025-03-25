@@ -31,17 +31,18 @@
  */
 public class Code033_Search {
     public int search(int[] nums, int target) {
-        // 分析情况
-        // 第一种情况
-        // 如果中点的数比target要小的话
-        // 分情况讨论
-        // 如果l的值比target要小 只能出现在右边
-        // 如果r的值比target要大 只会出现在左边
-
-
-        // 如果中点的数比target要大
-        // 这种要分情况讨论 如果l的值比target大 只能出现在右边
-        // 如果r的值比target要小 只会出现在左边
+        /**
+         * 分析可能性
+         * 相等直接返回
+         * 1.第一种情况 nums[mid] < target
+         *  在这种情况下分析可能性
+         *  1.1：只有一种情况 可能出现在右侧 nums[mid] < target
+         *  1.2：还有一种情况可能出现在左侧 nums[mid] > target
+         * 2.第二种情况 nums[mid] > target
+         * 在这种情况下分析可能性
+         * 2.1：只有一种情况 可能出现在左侧 nums[mid] > target
+         * 2.2：还有一种情况可能出现在右侧 nums[mid] < target
+         */
         int l = 0;
         int r = nums.length - 1;
         int index = -1;
