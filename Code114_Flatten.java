@@ -11,27 +11,8 @@
  */
 public class Code114_Flatten {
     public void flatten(TreeNode root) {
-        process(root);
+
     }
 
-    public TreeNode process(TreeNode root) {
-//        if (root == null) {
-//            return null;
-//        }
-//        if (root.left == null && root.right == null) {
-//            return root;
-//        }
-//       // 左树的左右侧节点
-//        TreeNode mostRight = root.left;
-//        while (mostRight != null && mostRight.right != null) {
-//            mostRight = mostRight.right;
-//        }
-//        if (mostRight != null) {
-//            mostRight.right = process(root.right);
-//            root.right = process(root.left);
-//        }else {
-//            root.right = process(root.right);
-//        }
-        return root;
-    }
+
 }
