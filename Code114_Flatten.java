@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 给你二叉树的根结点 root ，请你将它展开为一个单链表：
  *
@@ -11,8 +14,24 @@
  */
 public class Code114_Flatten {
     public void flatten(TreeNode root) {
-
+        List<TreeNode> list = new ArrayList<>();
+        process(root,list);
+        for (int i = 0; i < list.size()-1;i++) {
+            list.get(i).left = null;
+            list.get(i).right = list.get(i+1);
+        }
     }
+
+    public void process(TreeNode root,List<TreeNode> list) {
+        if (root == null) {
+            return;
+        }else {
+            list.add(root);
+            process(root.left,list);
+            process(root.right,list);
+        }
+    }
+
 
 
 }
