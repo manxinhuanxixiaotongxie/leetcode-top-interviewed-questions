@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -25,30 +26,34 @@ public class Code131_PartitionString {
     public List<List<String>> partition(String s) {
         List<List<String>> ans = new ArrayList<>();
         char[] str = s.toCharArray();
-        for (int i = 0; i < str.length; i++) {
-            List<String> cur = new ArrayList<>();
-            for (int j = i; j < str.length; j++) {
-                // 判断是否是回文串
-                if (isPal(str, i, j)) {
-                    cur.add(s.substring(i, j + 1));
-                }
-            }
-            if (!cur.isEmpty()) {
-                ans.add(cur);
-            }
-        }
+        process(str, 0, new LinkedList<>(), ans);
         return ans;
     }
 
-    public boolean isPal(char[] str, int i, int j) {
-        boolean res = true;
-        while (i <= j) {
-            if (str[i++] != str[j--]) {
-                res = false;
-                break;
+    public void process(char[] str, int index, LinkedList<String> path, List<List<String>> ans) {
+        if (index == str.length) {
+            ans.add(new ArrayList<>(path));
+        } else {
+            for (int i = index; i < str.length; i++) {
+                if (isPalindrome(str, index, i)) {
+                    path.add(new String(str, index, i - index + 1));
+                    process(str, i + 1, path, ans);
+                    path.removeLast();
+                }
             }
         }
-        return res;
     }
+
+    public boolean isPalindrome(char[] str, int l, int r) {
+        while (l < r) {
+            if (str[l] != str[r]) {
+                return false;
+            }
+            l++;
+            r--;
+        }
+        return true;
+    }
+
 
 }
