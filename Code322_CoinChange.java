@@ -62,4 +62,42 @@ public class Code322_CoinChange {
         }
         return dp[0][amount] == Integer.MAX_VALUE ? -1 : dp[0][amount];
     }
+
+    /**
+     * 尝试使用斜率优化进行函数性能优化
+     * <p>
+     * <p>
+     * 2 1 2 4 6 3
+     * 0 1 2 3 4 5
+     * <p>
+     * dp[1][10] = dp[2][10] dp[2][9] dp[2][8] dp[2][7] dp[2][6] 。。。
+     *
+     * @param coins
+     * @param amount
+     * @return
+     */
+    public int coinChange3(int[] coins, int amount) {
+        if (coins == null || coins.length == 0) {
+            return -1;
+        }
+        int N = coins.length;
+        int[][] dp = new int[N + 1][amount + 1];
+        for (int i = 0; i < N + 1; i++) {
+            for (int j = 1; j < amount + 1; j++) {
+                dp[i][j] = Integer.MAX_VALUE;
+            }
+        }
+        for (int index = N - 1; index >= 0; index--) {
+            for (int rest = 1; rest <= amount; rest++) {
+                int ans = Integer.MAX_VALUE;
+                // 使用当前货币的张数
+                if (rest - coins[index] >= 0 && dp[index][rest - coins[index]] != Integer.MAX_VALUE) {
+                    ans = dp[index][rest - coins[index]] + 1;
+                }
+                ans = Math.min(ans, dp[index + 1][rest]);
+                dp[index][rest] = ans;
+            }
+        }
+        return dp[0][amount] == Integer.MAX_VALUE ? -1 : dp[0][amount];
+    }
 }
