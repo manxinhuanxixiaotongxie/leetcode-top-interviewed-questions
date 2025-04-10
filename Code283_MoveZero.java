@@ -31,7 +31,7 @@ public class Code283_MoveZero {
         // 题目要求不更改非0 元素的相对位置
         // 并且不能复制数组 在原数组上进行操作
         // 从右到左遍历 遇到0就将0遍历到最后一个为止的0上
-        int limit = nums.length-1;
+        int limit = nums.length - 1;
         for (int r = nums.length - 1; r >= 0; r--) {
             if (nums[r] == 0) {
                 // 交换到r的最后一个为止
@@ -45,25 +45,16 @@ public class Code283_MoveZero {
     }
 
     /**
-     *
      * 双指针解法
+     * 题目要求要维持非0元素的相对位置
      *
-     * 设计两个指针，一个左指针一个右指针
      * @param nums
      */
     public void moveZeroes2(int[] nums) {
-        int l = 0;
-        int r = nums.length-1;
-        while (l < r) {
-            if (nums[r] == 0) {
-                r--;
-            }else if (nums[l] == 0) {
-                swap(nums, l, r);
-                l++;
-                r--;
-            }else {
-                swap(nums, l, r);
-                r--;
+        int l = -1;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != 0) {
+                swap(nums, ++l, i);
             }
         }
     }
