@@ -1,6 +1,3 @@
-import com.sun.org.apache.bcel.internal.classfile.Code;
-import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
-
 public class Code687_LongestUnivaluePath {
     public int longestUnivaluePath(TreeNode root) {
         /**
