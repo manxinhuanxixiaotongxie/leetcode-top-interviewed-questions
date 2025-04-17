@@ -15,20 +15,22 @@ public class Code308_SumQuery2D {
         }
         N = matrix.length;
         M = matrix[0].length;
-        nums = new int[N + 1][M + 1];
+        nums = new int[N][M];
         tree = new int[N + 1][M + 1];
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < M; j++) {
-                nums[i + 1][j + 1] = matrix[i][j];
+                nums[i][j] = matrix[i][j];
                 add(i + 1, j + 1, matrix[i][j]);
             }
         }
     }
 
     private void add(int row, int col, int val) {
+        int add = val - nums[row - 1][col - 1];
+        nums[row - 1][col - 1] = val;
         for (int i = row; i <= N; i += i & (-i)) {
             for (int j = col; j <= M; j += j & (-j)) {
-                tree[i][j] += val;
+                tree[i][j] += add;
             }
         }
     }
