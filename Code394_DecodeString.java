@@ -17,10 +17,28 @@ import java.util.Stack;
  */
 public class Code394_DecodeString {
 
+    /**
+     * 解码字符串
+     *
+     * @param s
+     * @return
+     */
     public String decodeString(String s) {
         return process(s.toCharArray(), 0).ans;
     }
 
+    /**
+     * 递归解码
+     * <p>
+     * 采用这种结构可以解决大部分字符换层次的问题
+     * 函数的含义是：
+     * <p>
+     * 处理从index位置开始一一直到]的范围的字符串 返回已经处理完的下标
+     *
+     * @param chars
+     * @param index
+     * @return
+     */
     private Info process(char[] chars, int index) {
         StringBuilder sb = new StringBuilder();
         while (index < chars.length && chars[index] != ']') {
@@ -30,21 +48,19 @@ public class Code394_DecodeString {
                     times = times * 10 + chars[index] - '0';
                     index++;
                 }
-                index++;
-                Info next = process(chars, index);
+                // 数字后面一定是'['
+                Info next = process(chars, index + 1);
                 index = next.index + 1;
-                for (int i = 0; i < times; i++) {
-                    sb.append(next.ans);
-                }
+                sb.append(String.valueOf(next.ans).repeat(Math.max(0, times)));
             } else {
+                // 左括号或者字母
                 sb.append(chars[index++]);
             }
         }
         return new Info(sb.toString(), index);
     }
 
-
-    class Info {
+    static class Info {
         String ans;
         int index;
 
