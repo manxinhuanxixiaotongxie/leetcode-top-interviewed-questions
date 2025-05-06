@@ -32,6 +32,53 @@ public class Code114_Flatten {
         }
     }
 
+    /**
+     * 利用morris遍历
+     *
+     * @param root
+     */
+    public static void flatten2(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        TreeNode pre = null;
+        TreeNode cur = root;
+        TreeNode mostRight = null;
+        while (cur != null) {
+            mostRight = cur.left;
+            if (mostRight != null) {
+                while (mostRight.right != null && mostRight.right != cur) {
+                    mostRight = mostRight.right;
+                }
+                if (mostRight.right == null) {
+                    mostRight.right = cur;
+                    if (pre != null) {
+                        pre.left = cur;
+                    }
+                    pre = cur;
+                    cur = cur.left;
+                    continue;
+                } else {
+                    mostRight.right = null;
+                }
+            } else {
+                if (pre != null) {
+                    pre.left = cur;
+                }
+                pre = cur;
+            }
+            cur = cur.right;
+        }
+        cur = root;
+        TreeNode next = null;
+        while (cur != null) {
+            next = cur.left;
+            cur.left = null;
+            cur.right = next;
+            cur = next;
+        }
+    }
+
 
 
 }
